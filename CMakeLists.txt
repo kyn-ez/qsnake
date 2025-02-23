@@ -11,7 +11,15 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 add_subdirectory(vendor/SDL EXCLUDE_FROM_ALL)
 
 # Create the game executable target
-add_executable(qsnake qsnake.c)
+add_executable(${PROJECT_NAME})
+
+# List all the sources to compile
+target_sources(${PROJECT_NAME}
+PRIVATE
+    src/main.c
+    src/input.c
+    src/update.c
+)
 
 # Link to the actual SDL3 library
-target_link_libraries(qsnake PRIVATE SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
