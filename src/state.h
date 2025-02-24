@@ -17,6 +17,13 @@ typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
     Uint64 last_update_time;
+    int score;
+
+    // Fields related to the apple
+    int apple_position_x;
+    int apple_position_y;
+
+    // Fields related to the snake
     int snake_position_x;
     int snake_position_y;
     SnakeDirection snake_direction;

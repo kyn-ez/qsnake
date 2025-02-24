@@ -18,22 +18,35 @@ static void update_snake_position(State* state)
     // Update the snake's position based on the direction we are currently taking
     switch (state->snake_direction) {
         case MOVE_UP:
-            state->snake_position_y -= 1;
+            state->snake_position_y--;
             break;
         case MOVE_DOWN:
-            state->snake_position_y += 1;
+            state->snake_position_y++;
             break;
         case MOVE_LEFT:
-            state->snake_position_x -= 1;
+            state->snake_position_x--;
             break;
         case MOVE_RIGHT:
-            state->snake_position_x += 1;
+            state->snake_position_x++;
             break;
     }
 
     // Warp to the other side of the grid if necessary
     state->snake_position_x = warp_around_grid(state->snake_position_x);
     state->snake_position_y = warp_around_grid(state->snake_position_y);
+}
+
+// Run the scoring logic
+// TODO: the apple shouldn't be able to spawn inside the snake
+static void check_if_the_apple_was_eaten(State* state)
+{
+    const bool same_x = state->snake_position_x == state->apple_position_x;
+    const bool same_y = state->snake_position_y == state->apple_position_y;
+    if (same_x && same_y) {
+        SDL_Log("Score: %d\n", ++state->score);
+        state->apple_position_x = SDL_rand(CELLS_IN_WINDOW_SIDE);
+        state->apple_position_y = SDL_rand(CELLS_IN_WINDOW_SIDE);
+    }
 }
 
 // This function runs once per frame
@@ -45,6 +58,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     // Compute the game logic for each fixed amout of time passed since last update
     while ((now_time - state->last_update_time) >= UPDATE_INTERVAL_IN_MS) {
         update_snake_position(state);
+        check_if_the_apple_was_eaten(state);
         state->last_update_time += UPDATE_INTERVAL_IN_MS;
     }
 
@@ -52,10 +66,16 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     SDL_SetRenderDrawColor(state->renderer, 0, 0, 0, 255);
     SDL_RenderClear(state->renderer);
 
-    // Initialize the object we will use to draw each cell of the grid
+    // Initialize the object we will use to draw the objects in the grid
     SDL_FRect rect;
     rect.w = CELL_SIDE;
     rect.h = CELL_SIDE;
+
+    // Draw the apple
+    rect.x = state->apple_position_x * CELL_SIDE;
+    rect.y = state->apple_position_y * CELL_SIDE;
+    SDL_SetRenderDrawColor(state->renderer, 0, 255, 0, 255);
+    SDL_RenderFillRect(state->renderer, &rect);
 
     // Draw the snake
     rect.x = state->snake_position_x * CELL_SIDE;

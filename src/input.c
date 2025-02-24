@@ -3,6 +3,7 @@
 #include "state.h"
 
 // The snake can't immediately move in the direction opposite to the one in which it is moving
+// TODO: the player can avoid these restrictions by quickly making two keyboard inputs before the game logic is updated
 static void snake_try_to_change_direction(State* state, SnakeDirection proposed)
 {
     const SnakeDirection current = state->snake_direction;
