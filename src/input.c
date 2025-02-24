@@ -2,21 +2,35 @@
 
 #include "state.h"
 
+// The snake can't immediately move in the direction opposite to the one in which it is moving
+static void snake_try_to_change_direction(State* state, SnakeDirection proposed)
+{
+    const SnakeDirection current = state->snake_direction;
+    const bool direction_allowed = (proposed == MOVE_UP && current != MOVE_DOWN)
+        || (proposed == MOVE_DOWN && current != MOVE_UP)
+        || (proposed == MOVE_LEFT && current != MOVE_RIGHT)
+        || (proposed == MOVE_RIGHT && current != MOVE_LEFT);
+
+    if (direction_allowed) {
+        state->snake_direction = proposed;
+    }
+}
+
 // Handle all the supported keyboard inputs
 static SDL_AppResult handle_keydown(State* state, SDL_Scancode key_code)
 {
     switch (key_code) {
         case SDL_SCANCODE_W:
-            state->snake_direction = MOVE_UP;
+            snake_try_to_change_direction(state, MOVE_UP);
             break;
         case SDL_SCANCODE_S:
-            state->snake_direction = MOVE_DOWN;
+            snake_try_to_change_direction(state, MOVE_DOWN);
             break;
         case SDL_SCANCODE_A:
-            state->snake_direction = MOVE_LEFT;
+            snake_try_to_change_direction(state, MOVE_LEFT);
             break;
         case SDL_SCANCODE_D:
-            state->snake_direction = MOVE_RIGHT;
+            snake_try_to_change_direction(state, MOVE_RIGHT);
             break;
     }
 
