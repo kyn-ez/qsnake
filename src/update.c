@@ -1,5 +1,5 @@
-#include "settings.h"
-#include "state.h"
+#include "headers/settings.h"
+#include "headers/state.h"
 
 // When the snake goes beyond the borders of the grid, warp it to the other side
 static int warp_around_grid(int position)
@@ -60,7 +60,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     }
 
     // Clear the screen
-    SDL_SetRenderDrawColor(state->renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(state->renderer, 200, 100, 50, 255);
     SDL_RenderClear(state->renderer);
 
     // Initialize the object we will use to draw the objects in the grid
@@ -71,13 +71,13 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     // Draw the apple
     rect.x = state->apple.position_x * CELL_SIDE;
     rect.y = state->apple.position_y * CELL_SIDE;
-    SDL_SetRenderDrawColor(state->renderer, 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(state->renderer, 220, 45, 20, 255);
     SDL_RenderFillRect(state->renderer, &rect);
 
     // Draw the snake
     rect.x = state->snake.head_position_x * CELL_SIDE;
     rect.y = state->snake.head_position_y * CELL_SIDE;
-    SDL_SetRenderDrawColor(state->renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(state->renderer, 25, 230, 20, 255);
     SDL_RenderFillRect(state->renderer, &rect);
 
     // Update the screen

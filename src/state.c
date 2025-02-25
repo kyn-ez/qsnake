@@ -1,5 +1,5 @@
-#include "state.h"
-#include "settings.h"
+#include "headers/state.h"
+#include "headers/settings.h"
 
 void randomize_apple_position(State* state)
 {

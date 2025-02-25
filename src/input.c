@@ -1,4 +1,4 @@
-#include "state.h"
+#include "headers/state.h"
 
 // The snake can't immediately move in the direction opposite to the one in which it is moving
 // TODO: the player can avoid these restrictions by quickly making two keyboard inputs before the game logic is updated
