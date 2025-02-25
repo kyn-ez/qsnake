@@ -23,7 +23,7 @@ static SDL_AppResult handle_keydown(State* state, SDL_Scancode key_code)
         case SDL_SCANCODE_Q:
         case SDL_SCANCODE_ESCAPE:
             return SDL_APP_SUCCESS;
-        
+
         // Restart the game
         case SDL_SCANCODE_R:
             start_new_game(state);
@@ -31,18 +31,10 @@ static SDL_AppResult handle_keydown(State* state, SDL_Scancode key_code)
             break;
 
         // Movement-related input
-        case SDL_SCANCODE_W:
-            snake_try_to_change_direction(state, MOVE_UP);
-            break;
-        case SDL_SCANCODE_S:
-            snake_try_to_change_direction(state, MOVE_DOWN);
-            break;
-        case SDL_SCANCODE_A:
-            snake_try_to_change_direction(state, MOVE_LEFT);
-            break;
-        case SDL_SCANCODE_D:
-            snake_try_to_change_direction(state, MOVE_RIGHT);
-            break;
+        case SDL_SCANCODE_W: snake_try_to_change_direction(state, MOVE_UP); break;
+        case SDL_SCANCODE_S: snake_try_to_change_direction(state, MOVE_DOWN); break;
+        case SDL_SCANCODE_A: snake_try_to_change_direction(state, MOVE_LEFT); break;
+        case SDL_SCANCODE_D: snake_try_to_change_direction(state, MOVE_RIGHT); break;
     }
 
     return SDL_APP_CONTINUE;

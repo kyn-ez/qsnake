@@ -1,7 +1,7 @@
 #ifndef QSNAKE_STATE_H
 #define QSNAKE_STATE_H
 
-#include <SDL3/SDL.h>
+#include "settings.h"
 
 // Small helper struct used to represent positions in the grid
 typedef struct {
@@ -21,6 +21,8 @@ typedef enum {
 typedef struct {
     Position head_position;
     SnakeDirection head_direction;
+    int body_length;
+    Position body[CELLS_IN_WINDOW_SIDE * CELLS_IN_WINDOW_SIDE];
 } SnakeState;
 
 // Describes the current status of the game
@@ -34,7 +36,8 @@ typedef struct {
 } State;
 
 bool positions_are_equal(Position position1, Position position2);
-void randomize_position(Position* position);
+void snake_add_new_body_part(State* state);
+void spawn_new_apple(State* state);
 void start_new_game(State* state);
 
 #endif
