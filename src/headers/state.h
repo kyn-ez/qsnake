@@ -3,6 +3,11 @@
 
 #include <SDL3/SDL.h>
 
+// Small helper struct used to represent positions in the grid
+typedef struct {
+    int x, y;
+} Position;
+
 // The input directions the player can give to move the snake
 typedef enum {
     MOVE_UP,
@@ -14,16 +19,9 @@ typedef enum {
 
 // Fields related to the snake
 typedef struct {
-    int head_position_x;
-    int head_position_y;
+    Position head_position;
     SnakeDirection head_direction;
 } SnakeState;
-
-// Fields related to the apple
-typedef struct {
-    int position_x;
-    int position_y;
-} AppleState;
 
 // Describes the current status of the game
 typedef struct {
@@ -32,10 +30,11 @@ typedef struct {
     Uint64 last_update_time;
     int score;
     SnakeState snake;
-    AppleState apple;
+    Position apple_position;
 } State;
 
-void randomize_apple_position(State* state);
-void randomize_snake_head_state(State* state);
+bool positions_are_equal(Position position1, Position position2);
+void randomize_position(Position* position);
+void start_new_game(State* state);
 
 #endif

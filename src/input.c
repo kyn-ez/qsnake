@@ -26,8 +26,7 @@ static SDL_AppResult handle_keydown(State* state, SDL_Scancode key_code)
         
         // Restart the game
         case SDL_SCANCODE_R:
-            randomize_apple_position(state);
-            randomize_snake_head_state(state);
+            start_new_game(state);
             state->score = 0;
             break;
 

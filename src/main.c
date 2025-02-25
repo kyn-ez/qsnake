@@ -33,10 +33,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     }
 
     // Initialize randomically the fields related to the apple and the snake
-    randomize_apple_position(state);
-    randomize_snake_head_state(state);
+    start_new_game(state);
 
-    state->score = 0;
     state->last_update_time = SDL_GetTicks();
     return SDL_APP_CONTINUE;
 }
