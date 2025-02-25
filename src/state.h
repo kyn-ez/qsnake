@@ -12,21 +12,30 @@ typedef enum {
     NUMBER_OF_DIRECTIONS,
 } SnakeDirection;
 
+// Fields related to the snake
+typedef struct {
+    int head_position_x;
+    int head_position_y;
+    SnakeDirection head_direction;
+} SnakeState;
+
+// Fields related to the apple
+typedef struct {
+    int position_x;
+    int position_y;
+} AppleState;
+
 // Describes the current status of the game
 typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
     Uint64 last_update_time;
     int score;
-
-    // Fields related to the apple
-    int apple_position_x;
-    int apple_position_y;
-
-    // Fields related to the snake
-    int snake_position_x;
-    int snake_position_y;
-    SnakeDirection snake_direction;
+    SnakeState snake;
+    AppleState apple;
 } State;
+
+void randomize_apple_position(State* state);
+void randomize_snake_head_state(State* state);
 
 #endif

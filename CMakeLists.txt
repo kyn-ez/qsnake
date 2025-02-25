@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
 PRIVATE
     src/main.c
+    src/state.c
     src/input.c
     src/update.c
 )

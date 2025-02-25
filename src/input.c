@@ -1,19 +1,17 @@
-#include <SDL3/SDL.h>
-
 #include "state.h"
 
 // The snake can't immediately move in the direction opposite to the one in which it is moving
 // TODO: the player can avoid these restrictions by quickly making two keyboard inputs before the game logic is updated
 static void snake_try_to_change_direction(State* state, SnakeDirection proposed)
 {
-    const SnakeDirection current = state->snake_direction;
+    const SnakeDirection current = state->snake.head_direction;
     const bool direction_allowed = (proposed == MOVE_UP && current != MOVE_DOWN)
         || (proposed == MOVE_DOWN && current != MOVE_UP)
         || (proposed == MOVE_LEFT && current != MOVE_RIGHT)
         || (proposed == MOVE_RIGHT && current != MOVE_LEFT);
 
     if (direction_allowed) {
-        state->snake_direction = proposed;
+        state->snake.head_direction = proposed;
     }
 }
 
@@ -21,6 +19,19 @@ static void snake_try_to_change_direction(State* state, SnakeDirection proposed)
 static SDL_AppResult handle_keydown(State* state, SDL_Scancode key_code)
 {
     switch (key_code) {
+        // Exit the program
+        case SDL_SCANCODE_Q:
+        case SDL_SCANCODE_ESCAPE:
+            return SDL_APP_SUCCESS;
+        
+        // Restart the game
+        case SDL_SCANCODE_R:
+            randomize_apple_position(state);
+            randomize_snake_head_state(state);
+            state->score = 0;
+            break;
+
+        // Movement-related input
         case SDL_SCANCODE_W:
             snake_try_to_change_direction(state, MOVE_UP);
             break;

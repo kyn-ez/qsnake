@@ -32,14 +32,9 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
         return SDL_APP_FAILURE;
     }
 
-    // Generate a random position for the apple
-    state->apple_position_x = SDL_rand(CELLS_IN_WINDOW_SIDE);
-    state->apple_position_y = SDL_rand(CELLS_IN_WINDOW_SIDE);
-
-    // Generate a random starting state for snake
-    state->snake_position_x = SDL_rand(CELLS_IN_WINDOW_SIDE);
-    state->snake_position_y = SDL_rand(CELLS_IN_WINDOW_SIDE);
-    state->snake_direction = SDL_rand(NUMBER_OF_DIRECTIONS);
+    // Initialize randomically the fields related to the apple and the snake
+    randomize_apple_position(state);
+    randomize_snake_head_state(state);
 
     state->score = 0;
     state->last_update_time = SDL_GetTicks();

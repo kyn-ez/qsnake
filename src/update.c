@@ -1,5 +1,3 @@
-#include <SDL3/SDL.h>
-
 #include "settings.h"
 #include "state.h"
 
@@ -16,36 +14,35 @@ static int warp_around_grid(int position)
 static void update_snake_position(State* state)
 {
     // Update the snake's position based on the direction we are currently taking
-    switch (state->snake_direction) {
+    switch (state->snake.head_direction) {
         case MOVE_UP:
-            state->snake_position_y--;
+            state->snake.head_position_y--;
             break;
         case MOVE_DOWN:
-            state->snake_position_y++;
+            state->snake.head_position_y++;
             break;
         case MOVE_LEFT:
-            state->snake_position_x--;
+            state->snake.head_position_x--;
             break;
         case MOVE_RIGHT:
-            state->snake_position_x++;
+            state->snake.head_position_x++;
             break;
     }
 
     // Warp to the other side of the grid if necessary
-    state->snake_position_x = warp_around_grid(state->snake_position_x);
-    state->snake_position_y = warp_around_grid(state->snake_position_y);
+    state->snake.head_position_x = warp_around_grid(state->snake.head_position_x);
+    state->snake.head_position_y = warp_around_grid(state->snake.head_position_y);
 }
 
 // Run the scoring logic
 // TODO: the apple shouldn't be able to spawn inside the snake
 static void check_if_the_apple_was_eaten(State* state)
 {
-    const bool same_x = state->snake_position_x == state->apple_position_x;
-    const bool same_y = state->snake_position_y == state->apple_position_y;
+    const bool same_x = state->snake.head_position_x == state->apple.position_x;
+    const bool same_y = state->snake.head_position_y == state->apple.position_y;
     if (same_x && same_y) {
         SDL_Log("Score: %d\n", ++state->score);
-        state->apple_position_x = SDL_rand(CELLS_IN_WINDOW_SIDE);
-        state->apple_position_y = SDL_rand(CELLS_IN_WINDOW_SIDE);
+        randomize_apple_position(state);
     }
 }
 
@@ -72,14 +69,14 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     rect.h = CELL_SIDE;
 
     // Draw the apple
-    rect.x = state->apple_position_x * CELL_SIDE;
-    rect.y = state->apple_position_y * CELL_SIDE;
+    rect.x = state->apple.position_x * CELL_SIDE;
+    rect.y = state->apple.position_y * CELL_SIDE;
     SDL_SetRenderDrawColor(state->renderer, 0, 255, 0, 255);
     SDL_RenderFillRect(state->renderer, &rect);
 
     // Draw the snake
-    rect.x = state->snake_position_x * CELL_SIDE;
-    rect.y = state->snake_position_y * CELL_SIDE;
+    rect.x = state->snake.head_position_x * CELL_SIDE;
+    rect.y = state->snake.head_position_y * CELL_SIDE;
     SDL_SetRenderDrawColor(state->renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(state->renderer, &rect);
 
