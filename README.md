@@ -1,5 +1,8 @@
 # qsnake
+
 An AI agent that learns to play *snake* using the *Q-learning* algorithm. The game is built using **SDL3** for graphics and **CMake** for the build system. This project demonstrates how reinforcement learning can be applied to a classic game.
+
+![screenshot](https://github.com/user-attachments/assets/3043d173-6fa2-4bfd-9147-45c765d552b7)
 
 ## Prerequisites
 Before building the project, ensure that you have the following dependencies installed:
