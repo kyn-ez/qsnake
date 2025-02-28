@@ -9,4 +9,10 @@
 #define CELLS_IN_WINDOW_SIDE 10
 #define CELL_SIDE (WINDOW_SIDE / CELLS_IN_WINDOW_SIDE)
 
+// Q-learning settings
+#define LEARNING_RATE 0.1f
+#define DISCOUNT_FACTOR 0.9f
+#define EXPLORATION_RATE 0.1f
+#define MAX_EPISODES 10000
+
 #endif

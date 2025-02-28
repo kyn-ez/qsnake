@@ -17,9 +17,11 @@ add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
 PRIVATE
     src/main.c
-    src/state.c
+    src/game.c
+    src/snake.c
     src/input.c
     src/update.c
+    src/agent.c
 )
 
 # Link to the actual SDL3 library
