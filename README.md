@@ -12,7 +12,7 @@ An AI agent that learns to play *Snake* using the *Q-learning* algorithm. The ga
 - Statistics about the AI’s performance.
 - Save and load the trained AI model.
 
-> Note: Game statistics, including the AI'score and performance, are logged to the terminal during gameplay.
+> Note: Game statistics, including the AI's score and performance, are logged to the terminal during gameplay.
 
 The trained AI model is saved as `model.bin` and is automatically loaded the next time the game is run.
 
