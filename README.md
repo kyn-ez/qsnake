@@ -49,7 +49,7 @@ Follow these steps to build and run the project:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/kyn-ez/qsnake.git
+git clone https://github.com/onekyn/qsnake.git
 cd qsnake
 ```
 
